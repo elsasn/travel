@@ -65,6 +65,9 @@ else {
 	elseif ($_GET['module'] == 'form_pembelian') {
 		include "modules/pembelian/form.php";
 	}
+	elseif ($_GET['module'] == 'form_pembelian2') {
+		include "modules/pembelian/form2.php";
+	}
 	// -----------------------------------------------------------------------------
 	// jika halaman konten yang dipilih laporan stok, panggil file view laporan stok
 	

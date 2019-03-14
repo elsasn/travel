@@ -77,7 +77,7 @@
             <?php  
             $no = 1;
             // fungsi query untuk menampilkan data dari tabel pembelian
-            $query = mysqli_query($mysqli, "SELECT * FROM pembelian ORDER BY id_pembelian DESC")
+            $query = mysqli_query($mysqli, "SELECT pembelian.id_pembelian, pembelian.tgl_pembelian, pembelian.id_jadwal, pembelian.harga, pembelian.jumlah_tiket, pembelian.subtotal, pembelian.tgl_berangkat, data_pelanggan.nama_pelanggan as id_pelanggan FROM pembelian JOIN data_pelanggan ON pembelian.id_pelanggan = data_pelanggan.id_pelanggan ORDER BY id_pembelian DESC")
                                             or die('Ada kesalahan pada query tampil Data pembelian: '.mysqli_error($mysqli));
 
             // tampilkan data
@@ -98,10 +98,10 @@
                      
                       <td class='center' width='150'>
                         <div>
-                          <a data-toggle='tooltip' data-placement='top' title='Ubah' style='margin-right:5px' class='btn btn-primary btn-sm' href='?module=form_pembelian&form=edit&id=$data[id_pembelian]'>
+                          <a data-toggle='tooltip' data-placement='top' title='Ubah' style='margin-right:5px'class='btn btn-primary btn-sm' href='?module=form_pembelian2&form2=edit&id=$data[id_pembelian]'>
                               <i style='color:#fff' class='glyphicon glyphicon-edit'></i>
-                          </a>";  
-            ?>
+                          </a>";   
+                          ?>
                           <a data-toggle="tooltip" data-placement="top" title="Hapus" class="btn btn-danger btn-sm" href="modules/pembelian/proses.php?act=delete&id=<?php echo $data['id_pembelian'];?>" onclick="return confirm('Anda yakin ingin menghapus pembelian <?php echo $data['nama_pembelian']; ?> ?');">
                               <i style="color:#fff" class="glyphicon glyphicon-trash"></i>
                           </a>

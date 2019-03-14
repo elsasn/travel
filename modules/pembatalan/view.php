@@ -61,8 +61,9 @@
               <tr>
                 <th class="center">No.</th>
                 <th class="center">ID Pembatalan</th>
-                <th class="center">ID Pembelian</th>
                 <th class="center">Tgl Pembatalan</th>
+                <th class="center">ID Pembelian</th>
+                <th class="center">Tgl Pembelian</th>
                 <th class="center">Jumlah Tiket</th>
                 <th class="center">Subtotal</th>
                 <th class="center">Jumlah Tiket Kembali</th>
@@ -88,19 +89,20 @@
               echo "<tr>
                       <td width='50' class='center'>$no</td>
                       <td width='150' class='center'>$data[id_pembatalan]</td>
-                      <td width='150' class='center'>$data[id_pembelian]</td>
                       <td width='180'class='center'>$data[tgl_pembatalan]</td>
+                      <td width='150' class='center'>$data[id_pembelian]</td>
+                      <td width='180'class='center'>$data[tgl_pembelian]</td>
                       <td width='150' class='center'>$data[jumlah_tiket]</td>
-                       <td width='150' class='center'>$data[subtotal]</td>
-                        <td width='150' class='center'>$data[jumlah_tiket_kembali]</td>
+                      <td width='150' class='center'>$data[subtotal]</td>
+                      <td width='150' class='center'>$data[jumlah_tiket_kembali]</td>
                       <td width='100'class='center'>$data[jumlah_uang_kembali]</td>
                        
                       <td class='center' width='150'>
                         <div>
-                          <a data-toggle='tooltip' data-placement='top' title='Ubah' style='margin-right:5px' class='btn btn-primary btn-sm' href='?module=form_pembatalan2&form2=edit&id=$data[id_pembatalan]'>
+                          <a data-toggle='tooltip' data-placement='top' title='Ubah' style='margin-right:5px'class='btn btn-primary btn-sm' href='?module=form_pembatalan2&form2=edit&id=$data[id_pembatalan]'>
                               <i style='color:#fff' class='glyphicon glyphicon-edit'></i>
                           </a>";  
-            ?>
+                          ?>
                           <a data-toggle="tooltip" data-placement="top" title="Hapus" class="btn btn-danger btn-sm" href="modules/pembatalan/proses.php?act=delete&id=<?php echo $data['id_pembatalan'];?>" onclick="return confirm('Anda yakin ingin menghapus pembatalan <?php echo $data['id_pembatalan']; ?> ?');">
                               <i style="color:#fff" class="glyphicon glyphicon-trash"></i>
                           </a>

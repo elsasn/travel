@@ -1,18 +1,25 @@
 <?php
-// fungsi untuk pengecekan tampilan form
-// jika form add data yang dipilih
-if ($_GET['form']=='add') { ?>
-<!-- tampilan form add data -->
-<!-- Content Header (Page header) -->
+
+// jika form edit data yang dipilih
+// isset : cek data ada / tidak
+if ($_GET['form2']=='edit') { 
+ if (isset($_GET['id'])) {
+      // fungsi query untuk menampilkan data dari tabel pelanggan
+      $query = mysqli_query($mysqli, "SELECT * FROM pembelian WHERE id_pembelian='$_GET[id]'") 
+                                      or die('Ada kesalahan pada query tampil Data Pembelian : '.mysqli_error($mysqli));
+      $data  = mysqli_fetch_assoc($query);
+    }
+?>
+
 <section class="content-header">
-  <h1>
-  <i class="fa fa-edit icon-title"></i> Data Transaksi Pembelian
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="?module=beranda"><i class="fa fa-home"></i> Beranda </a></li>
-    <li><a href="?module=pembelian"> Data Transaksi pembelian </a></li>
-    <li class="active"> Tambah </li>
-  </ol>
+    <h1>
+      <i class="fa fa-edit icon-title"></i> Ubah Pembelian
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="?module=beranda"><i class="fa fa-home"></i> Beranda </a></li>
+      <li><a href="?module=pembelian"> Pembelian </a></li>
+      <li class="active"> Ubah </li>
+    </ol>
 </section>
 
 <!-- Main content -->
@@ -21,34 +28,15 @@ if ($_GET['form']=='add') { ?>
     <div class="col-md-12">
       <div class="box box-primary">
         <!-- form start -->
-    <form role="form" class="form-horizontal" action="modules/pembelian/proses.php?act=insert" method="POST" name="formpembelian">
+    <form role="form" class="form-horizontal" action="modules/pembelian/proses.php?act=update" method="POST">
           <div class="box-body">
-            <?php
-            // fungsi untuk membuat kode transaksi
-            $query_id = mysqli_query($mysqli, "SELECT RIGHT(id_pembelian,4) as kode FROM pembelian
-            ORDER BY id_pembelian DESC LIMIT 1")
-            or die('Ada kesalahan pada query tampil pembelian : '.mysqli_error($mysqli));
-            $count = mysqli_num_rows($query_id);
-            if ($count <> 0) {
-            // mengambil data kode transaksi
-            $data_id = mysqli_fetch_assoc($query_id);
-            // print_r(ceil($data_id['kode']));die();
-            $kode    = ceil($data_id['kode'])+1;
-            } else {
-            $kode = 1;
-            }
-            // buat kode_transaksi
-            $tahun          = date("Y");
-            $buat_id        = str_pad($kode, 4, "0", STR_PAD_LEFT);
-            $id_pembelian = "PBL-$tahun-$buat_id";
-            ?>
-
-           <div class="form-group">
-              <label class="col-sm-2 control-label">ID Pembelian</label>
-              <div class="col-sm-5">
-                <input type="text" class="form-control" name="id_pembelian" value="<?php echo $id_pembelian; ?>" readonly required>
+            
+             <div class="form-group">
+                <label class="col-sm-2 control-label">Id Pembelian</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" name="id_pembelian" value="<?php echo $data['id_pembelian']; ?>" readonly required>
+                </div>
               </div>
-            </div>
 
             <div class="form-group">
               <label class="col-sm-2 control-label">ID Pelanggan</label>
@@ -67,9 +55,9 @@ if ($_GET['form']=='add') { ?>
             </div>
 
             <div class="form-group">
-              <label class="col-sm-2 control-label">Tgl Transaksi</label>
+              <label class="col-sm-2 control-label">Tgl Pembelian</label>
               <div class="col-sm-5">
-                <input type="date" class="form-control" id="tgl_transaksi"  name="tgl_transaksi" value="<?php echo $data['tgl_transaksi'] ?>" readonly required>
+                <input type="date" class="form-control" id="tgl_pembelian"  name="tgl_pembelian" value="<?php echo $data['tgl_pembelian'] ?>" readonly required>
               </div>
             </div>
 
@@ -93,21 +81,21 @@ if ($_GET['form']=='add') { ?>
             <div class="form-group">
               <label class="col-sm-2 control-label">Harga Tiket</label>
               <div class="col-sm-5">
-                <input type="text" class="form-control" id="harga"  name="harga" onchange="subtotal()" value=""  required>
+                <input type="text" class="form-control" id="harga"  name="harga" onchange="subtotal()" value="<?php $data['harga'] ?>"  required>
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-sm-2 control-label">Jumlah Tiket</label>
               <div class="col-sm-5" id="jumlah_tiket_div">
-                <input type="number" class="form-control" id="jumlah_tiket"  name="jumlah_tiket" required data-max="0" value="">
+                <input type="number" class="form-control" id="jumlah_tiket"  name="jumlah_tiket" required data-max="0" value="<?php echo $data['jumlah_tiket'] ?>">
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-sm-2 control-label">Subtotal</label>
               <div class="col-sm-5">
-                <input type="text" class="form-control" id="subtotal"  name="subtotal" value=""  required>
+                <input type="text" class="form-control" id="subtotal"  name="subtotal" value="<?php echo $data['subtotal'] ?>"  required>
               </div>
             </div>
 

@@ -24,7 +24,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])){
             // ambil data hasil submit dari form
             $id_pembelian  = mysqli_real_escape_string($mysqli, trim($_POST['id_pembelian']));
             $id_pelanggan  = mysqli_real_escape_string($mysqli, trim($_POST['id_pelanggan']));
-            $tgl_transaksi  = mysqli_real_escape_string($mysqli, trim($_POST['tgl_transaksi']));
+            $tgl_pembelian  = mysqli_real_escape_string($mysqli, trim($_POST['tgl_pembelian']));
             $id_jadwal  = mysqli_real_escape_string($mysqli, trim($_POST['id_jadwal']));
             $harga  = mysqli_real_escape_string($mysqli, trim($_POST['harga']));
             $jumlah_tiket = str_replace('.', '', mysqli_real_escape_string($mysqli, trim($_POST['jumlah_tiket'])));
@@ -38,8 +38,8 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])){
             // perintah query untuk menyimpan data ke tabel pembelian
             //print_r($query);
 
-            $query = mysqli_query($mysqli, "INSERT INTO pembelian(id_pembelian,id_pelanggan,tgl_transaksi,id_jadwal,harga,jumlah_tiket,subtotal,tgl_berangkat)
-                VALUES ('$id_pembelian','$id_pelanggan','$tgl_transaksi','$id_jadwal','$harga','$jumlah_tiket','$subtotal','$tgl_berangkat')")
+            $query = mysqli_query($mysqli, "INSERT INTO pembelian(id_pembelian,id_pelanggan,tgl_pembelian,id_jadwal,harga,jumlah_tiket,subtotal,tgl_berangkat)
+                VALUES ('$id_pembelian','$id_pelanggan','$tgl_pembelian','$id_jadwal','$harga','$jumlah_tiket','$subtotal','$tgl_berangkat')")
                 or die('Ada kesalahan pada query insert : '.mysqli_error($mysqli));
 
 
@@ -54,8 +54,9 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])){
         if (isset($_POST['simpan'])) {
             if (isset($_POST['id_pembelian'])) {
                 // ambil data hasil submit dari form
-             $id_pembelian  = mysqli_real_escape_string($mysqli, trim($_POST['id_pembelian']));
+            $id_pembelian  = mysqli_real_escape_string($mysqli, trim($_POST['id_pembelian']));
             $id_pelanggan  = mysqli_real_escape_string($mysqli, trim($_POST['id_pelanggan']));
+            $tgl_pembelian  = mysqli_real_escape_string($mysqli, trim($_POST['tgl_pembelian']));
             $id_jadwal  = mysqli_real_escape_string($mysqli, trim($_POST['id_jadwal']));
             $harga  = mysqli_real_escape_string($mysqli, trim($_POST['harga']));
             $jumlah_tiket = str_replace('.', '', mysqli_real_escape_string($mysqli, trim($_POST['jumlah_tiket'])));
@@ -67,8 +68,9 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])){
                 //$updated_user = $_SESSION['id_user'];
 
                 // perintah query untuk mengubah data pada tabel pembelian
-                $query = mysqli_query($mysqli, "UPDATE pembelian_tiket SET  id_pembelian        = '$id_pembelian',
+                $query = mysqli_query($mysqli, "UPDATE pembelian SET  id_pembelian        = '$id_pembelian',
                                                                     id_pelanggan                = '$id_pelanggan',
+                                                                    tgl_pembelian                = '$tgl_pembelian',
                                                                     id_jadwal                    = '$id_jadwal',
                                                                     harga                       = '$harga',
                                                                      jumlah_tiket                = '$jumlah_tiket',

@@ -241,7 +241,7 @@ CREATE TABLE `jadwal` (
 /*Data for the table `jadwal` */
 
 insert  into `jadwal`(`id_jadwal`,`nama_jurusan`,`harga`,`jam_berangkat`,`kapasitas`) values 
-('JDWL-000001','JOGJA-KEBUMEN',70000,'00:00:00','6');
+('JDWL-000001','JOGJA-KEBUMEN',70000,'00:00:00','10');
 
 /*Table structure for table `jurusan` */
 
@@ -262,22 +262,55 @@ insert  into `jurusan`(`id_jurusan`,`nama_jurusan`) values
 ('JUR-1004 ','JOGJA-KR.PCUNG'),
 ('JUR-1005 ','JOGJA-MAJENANG');
 
+/*Table structure for table `ktp` */
+
+DROP TABLE IF EXISTS `ktp`;
+
+CREATE TABLE `ktp` (
+  `nik` varchar(20) NOT NULL,
+  `nama` varchar(50) DEFAULT NULL,
+  `tempat_lahir` varchar(50) DEFAULT NULL,
+  `ttl` date DEFAULT NULL,
+  `jk` varchar(50) DEFAULT NULL,
+  `alamat` text,
+  `rt` int(11) DEFAULT NULL,
+  `rw` int(11) DEFAULT NULL,
+  `kel` varchar(50) DEFAULT NULL,
+  `kec` varchar(50) DEFAULT NULL,
+  `agama` enum('Islam','Kristen','Katolik','Hindu','Budha') DEFAULT NULL,
+  `status_kawin` enum('Kawin','Belum Kawin') DEFAULT NULL,
+  `pekerjaan` varchar(50) DEFAULT NULL,
+  `kewarganegaraan` enum('WNI','WNA') DEFAULT NULL,
+  `masa_berlaku` varchar(50) DEFAULT 'SEUMUR HIDUP',
+  PRIMARY KEY (`nik`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `ktp` */
+
+insert  into `ktp`(`nik`,`nama`,`tempat_lahir`,`ttl`,`jk`,`alamat`,`rt`,`rw`,`kel`,`kec`,`agama`,`status_kawin`,`pekerjaan`,`kewarganegaraan`,`masa_berlaku`) values 
+('NIK-000003','Elsa SN','Bogor','2019-03-06','Laki-Laki','Sleman',3,2,'Sleman','Sleman','Kristen','Belum Kawin','Pelajar',NULL,'Seumur Hidup'),
+('NIK-000004','ffq','rqwrq','2019-02-27','Perempuan','rqwrq',0,1,'rwr','rqwrq','Budha','Kawin','rq',NULL,'qrq');
+
 /*Table structure for table `pembatalan` */
 
 DROP TABLE IF EXISTS `pembatalan`;
 
 CREATE TABLE `pembatalan` (
   `id_pembatalan` varchar(20) NOT NULL,
+  `tgl_pembatalan` date DEFAULT NULL,
   `id_pembelian` varchar(20) DEFAULT NULL,
-  `tgl_pembatalan` datetime DEFAULT NULL,
+  `tgl_pembelian` date DEFAULT NULL,
   `jumlah_tiket` int(11) DEFAULT NULL,
   `subtotal` int(11) DEFAULT NULL,
-  `jml_tiket_kembali` int(11) DEFAULT NULL,
-  `jml_kembali` int(11) DEFAULT NULL,
+  `jumlah_tiket_kembali` int(11) DEFAULT NULL,
+  `jumlah_uang_kembali` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_pembatalan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `pembatalan` */
+
+insert  into `pembatalan`(`id_pembatalan`,`tgl_pembatalan`,`id_pembelian`,`tgl_pembelian`,`jumlah_tiket`,`subtotal`,`jumlah_tiket_kembali`,`jumlah_uang_kembali`) values 
+('PMB-2019-0001','0000-00-00','PBL-2019-0001',NULL,3,2019,2,673);
 
 /*Table structure for table `pembayaran` */
 
@@ -307,10 +340,10 @@ DROP TABLE IF EXISTS `pembelian`;
 CREATE TABLE `pembelian` (
   `id_pembelian` varchar(20) NOT NULL,
   `id_pelanggan` varchar(20) DEFAULT NULL,
-  `tgl_transaksi` date DEFAULT NULL,
+  `tgl_pembelian` date DEFAULT NULL,
   `id_jadwal` varchar(20) DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
-  `tgl_berangkat` datetime DEFAULT NULL,
+  `tgl_berangkat` date DEFAULT NULL,
   `jumlah_tiket` int(11) DEFAULT NULL,
   `subtotal` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_pembelian`)
@@ -318,10 +351,8 @@ CREATE TABLE `pembelian` (
 
 /*Data for the table `pembelian` */
 
-insert  into `pembelian`(`id_pembelian`,`id_pelanggan`,`tgl_transaksi`,`id_jadwal`,`harga`,`tgl_berangkat`,`jumlah_tiket`,`subtotal`) values 
-('PM-2019-0001','PLG-000002','2019-02-18','JDWL-000001',70000,'2019-02-19 00:00:00',2,140000),
-('PM-2019-0002','PLG-000002','2019-02-20','JDWL-000001',70000,'2019-02-13 00:00:00',2,140000),
-('PM-2019-0003','PLG-000003','2019-02-20','JDWL-000001',70000,'2019-02-21 00:00:00',2,140000);
+insert  into `pembelian`(`id_pembelian`,`id_pelanggan`,`tgl_pembelian`,`id_jadwal`,`harga`,`tgl_berangkat`,`jumlah_tiket`,`subtotal`) values 
+('PBL-2019-0001','PLG-000002','0000-00-00','JDWL-000001',70000,'2019-03-18',1,2019);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
