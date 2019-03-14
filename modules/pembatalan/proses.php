@@ -1,5 +1,5 @@
 <?php
-
+//error_reporting(E_ALL);
 
 // print_r($_POST);
 // die;
@@ -10,7 +10,6 @@ session_start();
 
 // Panggil koneksi database.php untuk koneksi database
 require_once "../../config/database.php";
-
 // fungsi untuk pengecekan status login user 
 // jika user belum login, alihkan ke halaman login dan tampilkan pesan = 1
 if (empty($_SESSION['username']) && empty($_SESSION['password'])){
@@ -30,8 +29,16 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])){
             $jumlah_tiket_kembali  = mysqli_real_escape_string($mysqli, trim($_POST['jumlah_tiket_kembali']));
             $jumlah_uang_kembali  = mysqli_real_escape_string($mysqli, trim($_POST['jumlah_uang_kembali']));
             
-              // print_r($_POST);
-              // die;
+            $sel_query = mysqli_query($mysqli, "SELECT
+                      `id_jadwal`
+                    FROM
+                      `pembelian`
+                    where id_pembelian='$id_pembelian'")
+                or die('Ada kesalahan pada query insert : '.mysqli_error($mysqli));
+                $data_pembelian=mysqli_fetch_assoc($sel_query);
+            $id_jadwal=$data_pembelian['id_jadwal'];
+            //print_r($data_pembelian);
+            //die();
           
             //$created_user = $_SESSION['id_user'];
             // perintah query untuk menyimpan data ke tabel pembelian
@@ -43,9 +50,14 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])){
 
 
             if ($query) {
-                //menambah stok 
-                mysqli_query($mysqli, "UPDATE jadwal set kapasitas=$jumlah_tiket_kembali+kapasitas where id_jadwal='$id_jadwal'")or die('Ada kesalahan pada query insert : '.mysqli_error($mysqli));
+                //menambah stok
+                 mysqli_query($mysqli, "UPDATE pembelian set jumlah_tiket=jumlah_tiket-$jumlah_tiket_kembali where id_jadwal='$id_jadwal'")or die('Ada kesalahan pada query insert : '.mysqli_error($mysqli));
+
+                mysqli_query($mysqli, "UPDATE jadwal set kapasitas=kapasitas+$jumlah_tiket_kembali where id_jadwal='$id_jadwal'")or die('Ada kesalahan pada query insert : '.mysqli_error($mysqli));
+
                 // jika berhasil tampilkan pesan berhasil simpan data
+                // print_r($query);
+                // die;
                 header("location: ../../main.php?module=pembatalan&alert=1");
             }   
         }   
