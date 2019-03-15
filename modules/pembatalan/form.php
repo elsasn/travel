@@ -78,6 +78,13 @@ if ($_GET['form']=='add') { ?>
             </div>
 
             <div class="form-group">
+              <label class="col-sm-2 control-label">Tgl Keberangkatan</label>
+              <div class="col-sm-5">
+                <input type="date" class="form-control" id="tgl_berangkat"  name="tgl_berangkat" value="<?php echo ['$tgl_berangkat'] ?>" readonly required>
+              </div>
+            </div>
+
+            <div class="form-group">
               <label class="col-sm-2 control-label">Jumlah Tiket Dipesan</label>
               <div class="col-sm-5">
                 <input type="text" class="form-control" id="jumlah_tiket"  name="jumlah_tiket" onchange="tiket()"  required>
@@ -105,7 +112,7 @@ if ($_GET['form']=='add') { ?>
             <div class="box-footer">
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                  <input type="submit" class="btn btn-primary btn-submit" name="simpan" value="Simpan">
+                  <input type="submit" class="btn btn-primary btn-submit disabled" disable="disabled" id="btn-simpan" name="simpan" value="Simpan">
                   <a href="?module=pembatalan" class="btn btn-default btn-reset">Batal</a>
                 </div>
               </div>
@@ -170,14 +177,23 @@ if ($_GET['form']=='add') { ?>
       url: link,
       success:function(dt){
       data=JSON.parse(dt);
-      console.log(data);
+      console.log(data.diff_days);
+      if(parseInt(data.diff_days)<=1 ){
+        $('#btn-simpan').attr('disabled','disabled');
+        $('#btn-simpan').addClass('disabled');
+      }else{
+        $('#btn-simpan').removeAttr('disabled');
+        $('#btn-simpan').removeClass('disabled');
+      }
+      //console.log(data);
       // data iku isine object json key harga: xxxxk
       $('#harga').attr('value', data.harga);
       $('#jumlah_tiket').val(data.jumlah_tiket);
-      console.log(data);
+      //console.log(data);
       $('#subtotal').val(data.subtotal);
-      console.log(data);
+      //console.log(data);
       $('#tgl_pembelian').val(data.tgl_pembelian);
+      $('#tgl_berangkat').val(data.tgl_berangkat);
       
       $('#jml_kembali').val(data.jml_kembali);
       }

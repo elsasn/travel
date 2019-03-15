@@ -241,7 +241,7 @@ CREATE TABLE `jadwal` (
 /*Data for the table `jadwal` */
 
 insert  into `jadwal`(`id_jadwal`,`nama_jurusan`,`harga`,`jam_berangkat`,`kapasitas`) values 
-('JDWL-000001','JOGJA-KEBUMEN',70000,'00:00:00','10');
+('JDWL-000001','JOGJA-KEBUMEN',70000,'08:00:00','17');
 
 /*Table structure for table `jurusan` */
 
@@ -300,6 +300,7 @@ CREATE TABLE `pembatalan` (
   `tgl_pembatalan` date DEFAULT NULL,
   `id_pembelian` varchar(20) DEFAULT NULL,
   `tgl_pembelian` date DEFAULT NULL,
+  `tgl_berangkat` date DEFAULT NULL,
   `jumlah_tiket` int(11) DEFAULT NULL,
   `subtotal` int(11) DEFAULT NULL,
   `jumlah_tiket_kembali` int(11) DEFAULT NULL,
@@ -309,8 +310,9 @@ CREATE TABLE `pembatalan` (
 
 /*Data for the table `pembatalan` */
 
-insert  into `pembatalan`(`id_pembatalan`,`tgl_pembatalan`,`id_pembelian`,`tgl_pembelian`,`jumlah_tiket`,`subtotal`,`jumlah_tiket_kembali`,`jumlah_uang_kembali`) values 
-('PMB-2019-0001','0000-00-00','PBL-2019-0001',NULL,3,2019,2,673);
+insert  into `pembatalan`(`id_pembatalan`,`tgl_pembatalan`,`id_pembelian`,`tgl_pembelian`,`tgl_berangkat`,`jumlah_tiket`,`subtotal`,`jumlah_tiket_kembali`,`jumlah_uang_kembali`) values 
+('PMB-2019-0001','2019-03-15','PBL-2019-0001',NULL,'2019-03-18',2,140000,1,35000),
+('PMB-2019-0002','2019-03-15','PBL-2019-0002',NULL,'2019-03-18',2,210000,1,52500);
 
 /*Table structure for table `pembayaran` */
 
@@ -352,7 +354,8 @@ CREATE TABLE `pembelian` (
 /*Data for the table `pembelian` */
 
 insert  into `pembelian`(`id_pembelian`,`id_pelanggan`,`tgl_pembelian`,`id_jadwal`,`harga`,`tgl_berangkat`,`jumlah_tiket`,`subtotal`) values 
-('PBL-2019-0001','PLG-000002','0000-00-00','JDWL-000001',70000,'2019-03-18',1,2019);
+('PBL-2019-0001','PLG-000002','2019-03-15','JDWL-000001',70000,'2019-03-18',1,140000),
+('PBL-2019-0002','PLG-000002','2019-03-15','JDWL-000001',70000,'2019-03-18',1,210000);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

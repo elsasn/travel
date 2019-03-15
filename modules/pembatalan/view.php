@@ -2,7 +2,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    <i class="fa fa-folder-o icon-title"></i> Pembelian Tiket
+    <i class="fa fa-folder-o icon-title"></i> Pembatalan Tiket
 
     <a class="btn btn-primary btn-social pull-right" href="?module=form_pembatalan&form=add" title="Tambah Data" data-toggle="tooltip">
       <i class="fa fa-plus"></i> Tambah
@@ -64,6 +64,7 @@
                 <th class="center">Tgl Pembatalan</th>
                 <th class="center">ID Pembelian</th>
                 <th class="center">Tgl Pembelian</th>
+                <th class="center">Tgl Keberangkatan</th>
                 <th class="center">Jumlah Tiket</th>
                 <th class="center">Subtotal</th>
                 <th class="center">Jumlah Tiket Kembali</th>
@@ -92,6 +93,7 @@
                       <td width='180'class='center'>$data[tgl_pembatalan]</td>
                       <td width='150' class='center'>$data[id_pembelian]</td>
                       <td width='180'class='center'>$data[tgl_pembelian]</td>
+                      <td width='180'class='center'>$data[tgl_berangkat]</td>
                       <td width='150' class='center'>$data[jumlah_tiket]</td>
                       <td width='150' class='center'>$data[subtotal]</td>
                       <td width='150' class='center'>$data[jumlah_tiket_kembali]</td>

@@ -24,6 +24,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])){
             $id_pembatalan  = mysqli_real_escape_string($mysqli, trim($_POST['id_pembatalan']));
             $id_pembelian  = mysqli_real_escape_string($mysqli, trim($_POST['id_pembelian']));
             $tgl_pembatalan  = mysqli_real_escape_string($mysqli, trim($_POST['tgl_pembatalan']));
+            $tgl_berangkat  = mysqli_real_escape_string($mysqli, trim($_POST['tgl_berangkat']));
             $jumlah_tiket  = mysqli_real_escape_string($mysqli, trim($_POST['jumlah_tiket']));
             $subtotal  = mysqli_real_escape_string($mysqli, trim($_POST['subtotal']));
             $jumlah_tiket_kembali  = mysqli_real_escape_string($mysqli, trim($_POST['jumlah_tiket_kembali']));
@@ -44,14 +45,14 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])){
             // perintah query untuk menyimpan data ke tabel pembelian
             //print_r($query);
 
-            $query = mysqli_query($mysqli, "INSERT INTO pembatalan(id_pembatalan,id_pembelian,tgl_pembatalan,jumlah_tiket,subtotal,jumlah_tiket_kembali,jumlah_uang_kembali)
-                VALUES ('$id_pembatalan','$id_pembelian','tgl_pembatalan','$jumlah_tiket','$subtotal','$jumlah_tiket_kembali','$jumlah_uang_kembali')")
+            $query = mysqli_query($mysqli, "INSERT INTO pembatalan(id_pembatalan,id_pembelian,tgl_pembatalan,tgl_berangkat,jumlah_tiket,subtotal,jumlah_tiket_kembali,jumlah_uang_kembali)
+                VALUES ('$id_pembatalan','$id_pembelian','$tgl_pembatalan','$tgl_berangkat','$jumlah_tiket','$subtotal','$jumlah_tiket_kembali','$jumlah_uang_kembali')")
                 or die('Ada kesalahan pada query insert : '.mysqli_error($mysqli));
 
 
             if ($query) {
                 //menambah stok
-                 mysqli_query($mysqli, "UPDATE pembelian set jumlah_tiket=jumlah_tiket-$jumlah_tiket_kembali where id_jadwal='$id_jadwal'")or die('Ada kesalahan pada query insert : '.mysqli_error($mysqli));
+                 mysqli_query($mysqli, "UPDATE pembelian set jumlah_tiket=jumlah_tiket-$jumlah_tiket_kembali where id_pembelian='$id_pembelian'")or die('Ada kesalahan pada query insert : '.mysqli_error($mysqli));
 
                 mysqli_query($mysqli, "UPDATE jadwal set kapasitas=kapasitas+$jumlah_tiket_kembali where id_jadwal='$id_jadwal'")or die('Ada kesalahan pada query insert : '.mysqli_error($mysqli));
 
